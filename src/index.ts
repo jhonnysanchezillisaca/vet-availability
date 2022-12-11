@@ -56,11 +56,11 @@ result.forEach((line) => console.log(line));
 export function getAvailableTimesFromRawText(input: string): string[] {
   const rawSchedules = JSON.parse(input) as RawSchedule[];
 
-  const availabilityOutput = rawSchedules.map((rawSchedule) =>
-    formatIntervals(getAvailablility(toSchedule(rawSchedule)))
-  );
+  const sortedAvailability = rawSchedules.flatMap((rawSchedule) =>
+    getAvailablility(toSchedule(rawSchedule))
+  ).sort((a, b) => a.start.getTime() - b.start.getTime());
 
-  return availabilityOutput.flatMap((a) => a);
+  return formatIntervals(sortedAvailability);
 }
 
 function formatIntervals(intervals: Interval[]): string[] {
