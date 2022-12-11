@@ -1,6 +1,3 @@
-// read json file
-//  throw is invalid format or fields
-//
 // what happens to schedules that span more than one day?
 // should we also check that the start datetime is before the end datetime?
 // what happens if the breaks are at the same time?
@@ -51,20 +48,32 @@ interface Interval {
 }
 
 const input = await Deno.readTextFile("src/input.json");
-const rawSchedules = JSON.parse(input) as RawSchedule[];
+const result = getAvailableTimesFromRawText(input);
 
-rawSchedules.map((rawSchedule) =>
-  printAvailability(getAvailablility(toSchedule(rawSchedule)))
-);
+// print lines to console
+result.forEach((line) => console.log(line));
 
-function printAvailability(intervals: Interval[]) {
+export function getAvailableTimesFromRawText(input: string): string[] {
+  const rawSchedules = JSON.parse(input) as RawSchedule[];
+
+  const availabilityOutput = rawSchedules.map((rawSchedule) =>
+    formatIntervals(getAvailablility(toSchedule(rawSchedule)))
+  );
+
+  return availabilityOutput.flatMap((a) => a);
+}
+
+function formatIntervals(intervals: Interval[]): string[] {
+  const resultLines = [];
   for (const interval of intervals) {
-    console.log(
+    resultLines.push(
       `${dateFns.format(interval.start, "yyyy-MM-dd HH:mm")} - ${
         dateFns.format(interval.end, "HH:mm")
       } ${interval.employeeName}`,
     );
   }
+
+  return resultLines;
 }
 
 function getAvailablility(schedule: Schedule): Interval[] {
@@ -85,8 +94,6 @@ function getAvailablility(schedule: Schedule): Interval[] {
     }),
   );
 
-  // TODO: filter intervals that may be outside the working hours 
-  // (i.e. an interval that goes from 14:25 to 14:40 should not be valid if working day ends at 14:30)
   const availableIntervals = workingTimeIntervals.filter((
     interval,
   ) =>
