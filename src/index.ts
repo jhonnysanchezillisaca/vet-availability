@@ -85,6 +85,8 @@ function getAvailablility(schedule: Schedule): Interval[] {
     }),
   );
 
+  // TODO: filter intervals that may be outside the working hours 
+  // (i.e. an interval that goes from 14:25 to 14:40 should not be valid if working day ends at 14:30)
   const availableIntervals = workingTimeIntervals.filter((
     interval,
   ) =>
