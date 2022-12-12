@@ -1,8 +1,3 @@
-// what happens to schedules that span more than one day?
-// should we also check that the start datetime is before the end datetime?
-// what happens if the breaks are at the same time?
-// I assume all date and time is in UTC
-// the output doesn't group schedules by employee
 import { dateFns } from "./deps.ts";
 
 interface RawSchedule {

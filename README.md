@@ -17,3 +17,8 @@ deno run --allow-read src/index.ts
 ```bash
 deno test --allow-read
 ```
+
+## Assumptions
+
+- We don't support schedules that span more than one day
+- All dates are in UTC
