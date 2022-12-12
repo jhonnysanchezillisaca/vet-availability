@@ -42,7 +42,9 @@ interface Interval {
   employeeName?: string;
 }
 
-const input = await Deno.readTextFile("src/input.json");
+const fileName = Deno.args[0] ?? "src/input.json";
+console.info(`using file ${fileName}`);
+const input = await Deno.readTextFile(fileName);
 const result = getAvailableTimesFromRawText(input);
 
 // print lines to console
