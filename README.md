@@ -1,4 +1,4 @@
-# firstvet-tech-assignment-test
+# vet-availability
 
 This project uses Deno and is set to run on Github Codespaces
 https://deno.land/manual@v1.28.3/getting_started/setup_your_environment#github-codespaces
