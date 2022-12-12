@@ -25,6 +25,13 @@ To run the program you have to have [installed Deno](https://deno.land/manual@v1
 deno run --allow-read src/index.ts
 ```
 
+### Experimental
+To run the program without cloning the project, once you have deno installed, pass the fileName as argument (i.e. `input.json`). The program will ask permission to read the filename.
+
+```bash
+deno run --unstable https://raw.githubusercontent.com/jhonnysanchezillisaca/vet-availability/main/src/index.ts input.json
+```
+
 ## Execute tests
 
 ```bash
